@@ -8,22 +8,28 @@
 <style>
   :root{--rose:#c2506b;--coral:#f98b8b;--ink:#3d3a3f;--pink:#e87a86}
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
   body{font-family:'Poppins',sans-serif;color:var(--ink);
     background:linear-gradient(135deg,#e9e7ea 0%,#d8c3d0 55%,#d9a5a5 100%);
     background-attachment:fixed;min-height:100vh}
   a{text-decoration:none;color:inherit}
   ul{padding-left:20px;line-height:1.7}
 
-  /* NAV */
-  header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 5%;flex-wrap:wrap}
+  /* FIXED HEADER */
+  header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+    gap:16px;padding:14px 5%;flex-wrap:wrap;
+    background:rgba(233,231,234,.92);backdrop-filter:blur(8px);box-shadow:0 2px 12px rgba(0,0,0,.08)}
   .logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;line-height:.85;color:var(--rose)}
-  nav{display:flex;gap:22px;padding:14px 28px;border-radius:14px;color:#fff;flex-wrap:wrap;
+  nav{display:flex;gap:6px;padding:8px 12px;border-radius:14px;flex-wrap:wrap;
     background:linear-gradient(90deg,var(--rose),var(--coral))}
-  nav a{font-weight:500;font-size:.9rem}
-  nav a:hover{text-decoration:underline}
+  nav a{color:#fff;font-weight:500;font-size:.88rem;padding:8px 14px;border-radius:10px}
+  nav a:hover{background:rgba(255,255,255,.2)}
+  nav a.active{background:#fff;color:var(--rose)}
   .btn-query,.btn{padding:13px 24px;border-radius:14px;color:#fff;font-weight:600;display:inline-block;
     background:linear-gradient(90deg,var(--rose),var(--coral))}
+
+  /* PAGES: only the active one shows */
+  .page{display:none}
+  .page.active{display:block}
 
   /* HERO */
   .hero{display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:40px;padding:40px 5% 60px}
@@ -46,14 +52,15 @@
   .b4{top:50%;left:34%;width:90px;height:90px;background:#e8404f}
   .b5{bottom:6%;right:12%;width:90px;height:90px;background:#2f6fe0}
 
-  /* SECTIONS */
-  section{padding:60px 5%}
+  /* CONTENT PAGES */
+  section.page{padding:50px 5% 60px;min-height:70vh}
   section h2{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;color:var(--rose);letter-spacing:1px;margin-bottom:12px}
   .lead{max-width:680px;line-height:1.6;margin-bottom:28px}
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
   .card{background:rgba(255,255,255,.6);border-radius:18px;padding:26px}
   .card h3{color:var(--rose);margin-bottom:8px;font-size:1.05rem}
   .card p,.card li{font-size:.92rem;line-height:1.55}
+  .sub{margin-top:36px;font-size:1.8rem}
 
   /* DASHBOARD */
   .embed{border-radius:18px;overflow:hidden;background:#fff;border:2px dashed var(--coral)}
@@ -80,7 +87,7 @@
 
 <header>
   <a href="#home" class="logo">ZAGNI<br>SPHERE</a>
-  <nav>
+  <nav id="menu">
     <a href="#home">Home</a>
     <a href="#about">About Us</a>
     <a href="#services">Services</a>
@@ -94,8 +101,10 @@
   <a href="#contact" class="btn-query">Start a Query</a>
 </header>
 
-<main id="home">
-  <div class="hero">
+<main>
+
+  <!-- HOME -->
+  <div id="home" class="page hero">
     <div>
       <p class="welcome">Welcome to Zagni Sphere.</p>
       <h1>We decode social signals.<br>We amplify brand impact.</h1>
@@ -117,7 +126,7 @@
   </div>
 
   <!-- ABOUT / BUSINESS CASE -->
-  <section id="about">
+  <section id="about" class="page">
     <h2>About Us</h2>
     <p class="lead">EDIT: One or two sentences about who you are and what Zagni Sphere does for brands.</p>
     <div class="grid">
@@ -128,21 +137,21 @@
       <div class="card"><h3>Value hypothesis</h3>
         <p>EDIT: Expected benefit (cost avoided, revenue influenced, time saved). Note where the estimate might be optimistic.</p></div>
     </div>
-    <h2 style="margin-top:36px;font-size:1.8rem">Key business questions</h2>
+    <h2 class="sub">Key business questions</h2>
     <div class="card"><ul>
       <li>EDIT: Which creators drive the most engagement per post?</li>
       <li>EDIT: How is consumer sentiment about our brand changing over time?</li>
       <li>EDIT: Which platform gives the best return on content?</li>
       <li>EDIT: Add up to 8 questions, phrased as the sponsor would ask them.</li>
     </ul></div>
-    <h2 style="margin-top:36px;font-size:1.8rem">Success measures</h2>
+    <h2 class="sub">Success measures</h2>
     <div class="card"><ul>
       <li>EDIT: How the sponsor would judge that the solution worked.</li>
     </ul></div>
   </section>
 
   <!-- SERVICES -->
-  <section id="services">
+  <section id="services" class="page">
     <h2>Services</h2>
     <div class="grid">
       <div class="card"><h3>Creator Impact</h3><p>Compare creators by reach, engagement, and conversions to see who is worth partnering with.</p></div>
@@ -152,7 +161,7 @@
   </section>
 
   <!-- DASHBOARD -->
-  <section id="dashboard">
+  <section id="dashboard" class="page">
     <h2>Interactive Dashboard</h2>
     <p class="lead">Use the filters to narrow by platform, date, and brand. Click any chart to cross-filter the others.</p>
     <div class="embed">
@@ -160,5 +169,100 @@
       <iframe title="Zagni Sphere Dashboard" src="PASTE-YOUR-EMBED-LINK-HERE" allowfullscreen></iframe> -->
       <div class="placeholder"><p>Dashboard embed goes here.<br>Paste your Power BI or Tableau embed link into the iframe above.</p></div>
     </div>
-    <p class="asof">Data as of: <strong id="asof">EDIT: Nov 27, 2026</strong> · Refreshed automatically: EDIT: daily at 6:00 AM</p>
+    <p class="asof">Data as of: <strong>EDIT: Nov 27, 2026</strong> · Refreshed automatically: EDIT: daily at 6:00 AM</p>
   </section>
+
+  <!-- RECOMMENDATIONS -->
+  <section id="insights" class="page">
+    <h2>Recommendations</h2>
+    <p class="lead">Each recommendation is backed by evidence from the dashboard.</p>
+    <div class="grid">
+      <div class="card"><h3>EDIT: Recommendation 1</h3><p>Action the sponsor can take, and the numbers that support it.</p></div>
+      <div class="card"><h3>EDIT: Recommendation 2</h3><p>Action the sponsor can take, and the numbers that support it.</p></div>
+      <div class="card"><h3>EDIT: Recommendation 3</h3><p>Action the sponsor can take, and the numbers that support it.</p></div>
+    </div>
+    <p class="asof"><strong>Limitations and assumptions:</strong> EDIT: e.g. the dataset is synthetic; sentiment scores come from an automated model and may misread sarcasm.</p>
+  </section>
+
+  <!-- USAGE GUIDE -->
+  <section id="guide" class="page">
+    <h2>Usage Guide</h2>
+    <div class="grid">
+      <div class="card"><h3>How to navigate</h3>
+        <ul><li>EDIT: Start on the Executive Summary page.</li><li>Use the page tabs at the bottom of the dashboard.</li><li>Use slicers at the top to filter.</li><li>Right-click a chart and choose Drill through for detail.</li></ul></div>
+      <div class="card"><h3>How to read each view</h3>
+        <ul><li>EDIT: Executive Summary: headline results in under two minutes.</li><li>EDIT: Creator Impact: …</li><li>EDIT: Sentiment: …</li></ul></div>
+      <div class="card"><h3>Who to contact</h3><p>EDIT: Name and email of your team contact.</p></div>
+    </div>
+  </section>
+
+  <!-- DATA -->
+  <section id="data" class="page">
+    <h2>Data and Methodology</h2>
+    <p class="lead">Data is combined from at least two sources and cleaned with a repeatable process (EDIT: Power Query, SQL, or Python). The synthetic dataset contains no real personal information.</p>
+    <div class="tablewrap">
+      <table>
+        <tr><th>Source</th><th>Type</th><th>Rows</th><th>Used for</th></tr>
+        <tr><td>EDIT: Synthetic posts dataset</td><td>CSV file</td><td>EDIT</td><td>EDIT</td></tr>
+        <tr><td>EDIT: Database or API source</td><td>Database / API</td><td>EDIT</td><td>EDIT</td></tr>
+      </table>
+    </div>
+    <p class="asof">
+      <a href="EDIT-LINK-TO-DATA-DICTIONARY" style="text-decoration:underline">Data dictionary</a> ·
+      <a href="EDIT-LINK-TO-ERD" style="text-decoration:underline">Entity-relationship diagram</a> ·
+      <a href="EDIT-YOUR-GITHUB-REPO-LINK" style="text-decoration:underline">Source code on GitHub</a>
+    </p>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" class="page">
+    <h2>Our Team</h2>
+    <div class="grid">
+      <div class="card"><h3>EDIT: Member name</h3><p>Project lead</p></div>
+      <div class="card"><h3>EDIT: Member name</h3><p>Data engineering owner</p></div>
+      <div class="card"><h3>EDIT: Member name</h3><p>Data modeling owner</p></div>
+      <div class="card"><h3>EDIT: Member name</h3><p>Visualization and reporting owner</p></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="page">
+    <h2>Contact Us</h2>
+    <p class="lead">Tell us what you want to learn about your brand and we will get back to you.</p>
+    <form onsubmit="event.preventDefault();alert('Thanks! Your query was sent.');this.reset()">
+      <input type="text" placeholder="Your name" required>
+      <input type="email" placeholder="Email address" required>
+      <textarea rows="4" placeholder="Your question" required></textarea>
+      <button class="btn" type="submit">Send query</button>
+    </form>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 Zagni Sphere. All rights reserved.<br>
+  AI disclosure: EDIT: AI assistance was used to draft the website code; the team reviewed and tested it before use.
+</footer>
+
+<script>
+  // Shows one page at a time, based on the # in the address (e.g. #about)
+  function showPage(){
+    var id = location.hash.replace('#','') || 'home';
+    var target = document.getElementById(id);
+    if(!target || !target.classList.contains('page')){ id = 'home'; }
+    document.querySelectorAll('.page').forEach(function(p){
+      p.classList.toggle('active', p.id === id);
+    });
+    document.querySelectorAll('#menu a').forEach(function(a){
+      var on = a.getAttribute('href') === '#' + id;
+      a.classList.toggle('active', on);
+      if(on){ a.setAttribute('aria-current','page'); } else { a.removeAttribute('aria-current'); }
+    });
+    window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange', showPage);
+  showPage();
+</script>
+
+</body>
+</html>
